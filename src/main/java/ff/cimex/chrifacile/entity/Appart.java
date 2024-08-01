@@ -22,4 +22,6 @@ public class Appart {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Annonce annonce;
+
+    private Integer etageMax;
 }

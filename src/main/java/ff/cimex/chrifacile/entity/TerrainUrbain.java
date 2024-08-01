@@ -16,4 +16,8 @@ public class TerrainUrbain {
     @JoinColumn(name = "id_quartier")
     private Quartier quartier;
 
+    @ManyToOne
+    @JoinColumn(name = "name_autorisation")
+    private Autorisation autorisation;
+
 }

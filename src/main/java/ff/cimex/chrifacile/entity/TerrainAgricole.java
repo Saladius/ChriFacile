@@ -14,6 +14,8 @@ public class TerrainAgricole {
 
     private boolean puit;
 
+    private boolean battie;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Annonce annonce;
 }
