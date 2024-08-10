@@ -2,13 +2,15 @@ package ff.cimex.chrifacile.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-public class Quartier {
+@EqualsAndHashCode(callSuper=false)
+public class Quartier extends AbstractAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

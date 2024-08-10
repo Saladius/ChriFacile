@@ -2,6 +2,7 @@ package ff.cimex.chrifacile.config;
 
 import ff.cimex.chrifacile.filter.JwtRequestFilter;
 import ff.cimex.chrifacile.service.CustomUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
@@ -32,11 +35,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/api/v3/api-docs/**","/v3/api-docs/**","/api-docs/**","/api-docs","/api-docs/swagger-config", "/swagger-resources/**", "/swagger-ui/**", "/swagger-ui/index.html", "/v2/api-docs/**", "/webjars/**").permitAll()
+                        .requestMatchers("/api/annonce/**","api/annonce/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("**/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -59,6 +65,6 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/login", "/register"); // Specify paths to ignore
+        return (web) -> web.ignoring().requestMatchers("/login", "/register");
     }
 }

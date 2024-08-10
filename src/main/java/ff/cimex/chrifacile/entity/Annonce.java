@@ -1,27 +1,51 @@
 package ff.cimex.chrifacile.entity;
 
+
+import ff.cimex.chrifacile.enums.Type;
+import ff.cimex.chrifacile.enums.Unites;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
 @RequiredArgsConstructor
-public class Annonce {
+@EqualsAndHashCode(callSuper=false)
+public class Annonce extends AbstractAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAnnonce;
 
-    @ManyToOne
-    @JoinColumn(name = "name_type")
+    @Enumerated(EnumType.STRING)
     private Type type;
 
-    private Double superficie;
+    private Double superficieMax;
+
+    private Double superficieMin;
+
+    private Unites unites;
 
     private Long prixMin;
 
     private Long prixMax;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_terrain_urbain")
+    private TerrainUrbain terrainUrbain;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_terrain_agricole")
+    private TerrainAgricole terrainAgricole;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_appart")
+    private Appart appart;
+
+
+    @ManyToOne
+    @JoinColumn(name = "idVille")
+    private Ville ville;
 
 }

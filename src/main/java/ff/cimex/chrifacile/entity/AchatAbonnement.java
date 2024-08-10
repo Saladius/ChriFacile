@@ -3,12 +3,14 @@ package ff.cimex.chrifacile.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 @Entity
 @Data
-public class AchatAbonnement {
+@EqualsAndHashCode(callSuper=false)
+public class AchatAbonnement extends AbstractAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

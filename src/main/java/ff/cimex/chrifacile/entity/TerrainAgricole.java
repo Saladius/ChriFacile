@@ -2,12 +2,14 @@ package ff.cimex.chrifacile.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
 @RequiredArgsConstructor
-public class TerrainAgricole {
+@EqualsAndHashCode(callSuper=false)
+public class TerrainAgricole extends AbstractAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTerrainAgricole;
@@ -16,6 +18,6 @@ public class TerrainAgricole {
 
     private boolean battie;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Annonce annonce;
 }

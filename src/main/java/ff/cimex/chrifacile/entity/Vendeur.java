@@ -2,12 +2,14 @@ package ff.cimex.chrifacile.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Entity
 @Data
-public class Vendeur {
+@EqualsAndHashCode(callSuper=false)
+public class Vendeur extends AbstractAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
