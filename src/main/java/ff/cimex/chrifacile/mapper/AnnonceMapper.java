@@ -1,6 +1,6 @@
 package ff.cimex.chrifacile.mapper;
 
-import ff.cimex.chrifacile.dto.AnnonceDto;
+import ff.cimex.chrifacile.request.dto.AnnonceDto;
 import ff.cimex.chrifacile.entity.Annonce;
 import lombok.experimental.UtilityClass;
 

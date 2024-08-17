@@ -1,7 +1,6 @@
 package ff.cimex.chrifacile.mapper;
 
-import ff.cimex.chrifacile.dto.TerrainUrbainDto;
-import ff.cimex.chrifacile.entity.Authorization;
+import ff.cimex.chrifacile.request.dto.TerrainUrbainDto;
 import ff.cimex.chrifacile.entity.TerrainUrbain;
 import lombok.experimental.UtilityClass;
 

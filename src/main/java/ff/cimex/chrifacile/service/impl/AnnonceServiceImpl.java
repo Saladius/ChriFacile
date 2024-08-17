@@ -1,10 +1,11 @@
 package ff.cimex.chrifacile.service.impl;
 
-import ff.cimex.chrifacile.dto.*;
+
 import ff.cimex.chrifacile.entity.*;
 import ff.cimex.chrifacile.mapper.AnnonceMapper;
 import ff.cimex.chrifacile.repository.AnnonceRepository;
 import ff.cimex.chrifacile.repository.VilleRepository;
+import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.service.AnnonceService;
 import ff.cimex.chrifacile.util.CompareUtil;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service

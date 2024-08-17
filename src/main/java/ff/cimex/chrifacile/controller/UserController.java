@@ -1,10 +1,17 @@
 package ff.cimex.chrifacile.controller;
 
-import ff.cimex.chrifacile.dto.UserRegistrationDto;
+import ff.cimex.chrifacile.request.dto.LoginRequest;
+import ff.cimex.chrifacile.request.dto.UserRegistrationDto;
+import ff.cimex.chrifacile.response.dto.JwtAuthenticationResponse;
 import ff.cimex.chrifacile.service.UserService;
+import ff.cimex.chrifacile.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto request) {
@@ -26,10 +35,14 @@ public class UserController {
         return null;
     }
 
-  /*  @PostMapping("/login")
+   /*@PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
-        // Code pour connecter l'utilisateur
-        return null;
+       Authentication authentication = authenticationManager.authenticate(
+               new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+
+       SecurityContextHolder.getContext().setAuthentication(authentication);
+       String jwt = jwtUtil.generateToken(authentication);
+       return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
     @PostMapping("/logout")

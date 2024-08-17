@@ -1,6 +1,6 @@
 package ff.cimex.chrifacile.mapper;
 
-import ff.cimex.chrifacile.dto.QuartierDto;
+import ff.cimex.chrifacile.request.dto.QuartierDto;
 import ff.cimex.chrifacile.entity.Quartier;
 import lombok.experimental.UtilityClass;
 

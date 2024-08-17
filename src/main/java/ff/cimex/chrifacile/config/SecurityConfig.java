@@ -35,6 +35,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/api/users/login").permitAll()
                         .requestMatchers("/api/v3/api-docs/**","/v3/api-docs/**","/api-docs/**","/api-docs","/api-docs/swagger-config", "/swagger-resources/**", "/swagger-ui/**", "/swagger-ui/index.html", "/v2/api-docs/**", "/webjars/**").permitAll()
                         .requestMatchers("/api/annonce/**","api/annonce/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -67,4 +68,5 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/login", "/register");
     }
+
 }

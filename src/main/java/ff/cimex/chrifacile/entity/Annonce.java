@@ -31,6 +31,10 @@ public class Annonce extends AbstractAudit {
 
     private Long prixMax;
 
+    @ManyToOne
+    @JoinColumn(name = "idVille")
+    private Ville ville;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_terrain_urbain")
     private TerrainUrbain terrainUrbain;
@@ -43,9 +47,7 @@ public class Annonce extends AbstractAudit {
     @JoinColumn(name = "id_appart")
     private Appart appart;
 
+    private String nomAcheteur;
 
-    @ManyToOne
-    @JoinColumn(name = "idVille")
-    private Ville ville;
-
+    private String numTelephone;
 }

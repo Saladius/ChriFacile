@@ -1,6 +1,6 @@
 package ff.cimex.chrifacile.mapper;
 
-import ff.cimex.chrifacile.dto.TerrainAgricoleDto;
+import ff.cimex.chrifacile.request.dto.TerrainAgricoleDto;
 import ff.cimex.chrifacile.entity.TerrainAgricole;
 import lombok.experimental.UtilityClass;
 

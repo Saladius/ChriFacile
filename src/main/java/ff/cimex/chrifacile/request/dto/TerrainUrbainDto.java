@@ -1,4 +1,4 @@
-package ff.cimex.chrifacile.dto;
+package ff.cimex.chrifacile.request.dto;
 
 import lombok.Data;
 

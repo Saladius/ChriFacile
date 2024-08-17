@@ -1,6 +1,5 @@
-package ff.cimex.chrifacile.dto;
+package ff.cimex.chrifacile.request.dto;
 
-import ff.cimex.chrifacile.entity.Quartier;
 import lombok.Data;
 
 import java.util.List;

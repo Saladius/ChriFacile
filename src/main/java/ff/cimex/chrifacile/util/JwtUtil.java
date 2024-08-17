@@ -3,6 +3,8 @@ package ff.cimex.chrifacile.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -41,6 +43,10 @@ public class JwtUtil {
         return createToken(claims, username);
     }
 
+    public String generateToken(Authentication authentication) {
+        User principal = (User) authentication.getPrincipal(); // here, you get the authenticated user
+        return generateToken(principal.getUsername()); // now, use the username to generate the token
+    }
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))

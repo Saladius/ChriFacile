@@ -1,7 +1,7 @@
 package ff.cimex.chrifacile.service;
 
-import ff.cimex.chrifacile.dto.AnnonceDto;
-import ff.cimex.chrifacile.dto.FilterDto;
+import ff.cimex.chrifacile.request.dto.AnnonceDto;
+import ff.cimex.chrifacile.request.dto.FilterDto;
 import ff.cimex.chrifacile.entity.Annonce;
 import org.springframework.stereotype.Service;
 

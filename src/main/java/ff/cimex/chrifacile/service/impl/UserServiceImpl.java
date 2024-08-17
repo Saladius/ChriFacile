@@ -1,6 +1,6 @@
 package ff.cimex.chrifacile.service.impl;
 
-import ff.cimex.chrifacile.dto.UserRegistrationDto;
+import ff.cimex.chrifacile.request.dto.UserRegistrationDto;
 import ff.cimex.chrifacile.entity.UserEntity;
 import ff.cimex.chrifacile.enums.Role;
 import ff.cimex.chrifacile.exception.EmailExistsException;
