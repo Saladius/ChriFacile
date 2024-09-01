@@ -18,7 +18,7 @@ public class TerrainUrbain extends AbstractAudit {
     private String quartier;
 
     @ManyToOne
-    @JoinColumn(name = "name_autorisation")
+    @JoinColumn(name = "name_authorization")
     private Authorization authorization;
 
     @OneToOne(mappedBy = "terrainUrbain")

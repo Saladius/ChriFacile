@@ -51,9 +51,9 @@ public class AnnonceServiceImpl implements AnnonceService {
 
     private boolean isFilteredByPrerequisiteofType(Annonce annonce, FilterDto filterDto) {
         switch (filterDto.getType()) {
-            case TYPE_VILLA -> {
+           /* case TYPE_VILLA -> {
                 return isFilteredVilla(annonce);
-            }
+            }*/
             case TYPE_APPARTEMENT -> {
                 return isFilteredAppart(annonce.getAppart(), filterDto.getAppartDto());
             }
@@ -67,9 +67,9 @@ public class AnnonceServiceImpl implements AnnonceService {
         }
     }
 
-    private boolean isFilteredVilla(Annonce annonce) {
+   /* private boolean isFilteredVilla(Annonce annonce) {
         return true;
-    }
+    }*/
 
     private boolean isFilteredAppart(Appart appart, AppartDto appartDto) {
 
@@ -125,8 +125,8 @@ public class AnnonceServiceImpl implements AnnonceService {
     }
 
     private boolean isFilteredByAuthorization(Authorization authorization, AuthorizationDto authorizationDto) {
-        return CompareUtil.oneIsNull(authorization, authorizationDto, authorization.getNameAutorisation(), authorizationDto.getNameAutorisation())
-                || authorization.getNameAutorisation().equals(authorizationDto.getNameAutorisation());
+        return CompareUtil.oneIsNull(authorization, authorizationDto, authorization.getNameAuthorization(), authorizationDto.getNameAutorisation())
+                || authorization.getNameAuthorization().equals(authorizationDto.getNameAutorisation());
     }
 
 

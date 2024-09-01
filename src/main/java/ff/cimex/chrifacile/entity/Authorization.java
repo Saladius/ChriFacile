@@ -15,7 +15,7 @@ import java.util.List;
 public class Authorization extends AbstractAudit {
 
     @Id
-    private String nameAutorisation;
+    private String nameAuthorization;
 
     @OneToMany(mappedBy = "authorization")
     private List<TerrainUrbain> terrainUrbains = new ArrayList<>();

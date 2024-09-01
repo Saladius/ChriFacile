@@ -10,14 +10,14 @@ public class AuthorizationMapper {
     // Convert Entity to DTO
     public static AuthorizationDto mapToDto(Authorization authorization) {
         AuthorizationDto dto = new AuthorizationDto();
-        dto.setNameAutorisation(authorization.getNameAutorisation());
+        dto.setNameAutorisation(authorization.getNameAuthorization());
         return dto;
     }
 
     // Convert DTO to Entity
     public static Authorization mapToEntity(AuthorizationDto dto) {
         Authorization authorization = new Authorization();
-        authorization.setNameAutorisation(dto.getNameAutorisation());
+        authorization.setNameAuthorization(dto.getNameAutorisation());
         return authorization;
     }
 }
