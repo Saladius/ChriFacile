@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class FilterDto {
     private Type type;
-    private VilleDto villeDto;
+    private String villeDto;
 
     private Double superficie;
     private Long prix;

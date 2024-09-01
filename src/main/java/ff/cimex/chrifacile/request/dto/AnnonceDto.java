@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class AnnonceDto {
-    private VilleDto ville;
+    private String ville;
     private Type type;
     private Double superficieMax;
     private Double superficieMin;
@@ -16,4 +16,6 @@ public class AnnonceDto {
     private AppartDto appartDto;
     private TerrainAgricoleDto terrainAgricoleDto;
     private TerrainUrbainDto terrainUrbainDto;
+    private String nomAcheteur;
+    private String numTelephone;
 }

@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class TerrainUrbainDto {
 
-    private QuartierDto quartier;
+    private String quartier;
     private AuthorizationDto authorization;
 }

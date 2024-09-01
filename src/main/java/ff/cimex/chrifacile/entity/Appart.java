@@ -22,9 +22,7 @@ public class Appart extends AbstractAudit {
 
     private Integer nbrSalleDeBainMin;
 
-    @ManyToOne
-    @JoinColumn(name = "id_quartier")
-    private Quartier quartier;
+    private String quartier;
 
     @OneToOne
     private Annonce annonce;

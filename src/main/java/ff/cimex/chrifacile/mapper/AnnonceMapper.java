@@ -19,9 +19,10 @@ public class AnnonceMapper {
         dto.setUnites(annonce.getUnites());
         dto.setPrixMax(annonce.getPrixMax());
         dto.setPrixMin(annonce.getPrixMin());
+        dto.setVille(annonce.getVille());
+        dto.setNomAcheteur(annonce.getNomAcheteur());
+        dto.setNumTelephone(annonce.getNumTelephone());
 
-        // Map other DTOs. Assuming you have methods to convert these Entities to their respective DTOs
-        dto.setVille(VilleMapper.mapToDto(annonce.getVille()));
         if(Objects.nonNull(annonce.getAppart())) {
             dto.setAppartDto(AppartMapper.mapToDto(annonce.getAppart()));
         }
@@ -45,9 +46,10 @@ public class AnnonceMapper {
         annonce.setUnites(dto.getUnites());
         annonce.setPrixMax(dto.getPrixMax());
         annonce.setPrixMin(dto.getPrixMin());
+        annonce.setNomAcheteur(dto.getNomAcheteur());
+        annonce.setNumTelephone(dto.getNumTelephone());
 
-        // Map other Entities. Assuming you have methods to convert these DTOs to their respective Entities
-        annonce.setVille(VilleMapper.mapToEntity(dto.getVille()));
+        annonce.setVille(dto.getVille());
         if(Objects.nonNull(dto.getAppartDto())) {
             annonce.setAppart(AppartMapper.mapToEntity(dto.getAppartDto()));
         }

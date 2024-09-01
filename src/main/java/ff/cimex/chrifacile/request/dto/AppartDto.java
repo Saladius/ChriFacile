@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class AppartDto {
-    private QuartierDto quartier;
+    private String quartier;
 
     private Integer nbrChambreMax;
     private Integer nbrChambreMin;

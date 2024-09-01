@@ -16,10 +16,7 @@ public class AppartMapper {
         dto.setNbrSalleDeBainMin(appart.getNbrSalleDeBainMin());
         dto.setEtageMax(appart.getEtageMax());
 
-        // Convert Quartier to QuartierDto
-        if (appart.getQuartier() != null) {
-            dto.setQuartier(QuartierMapper.mapToDto(appart.getQuartier()));
-        }
+        dto.setQuartier(appart.getQuartier());
         return dto;
     }
 
@@ -32,10 +29,7 @@ public class AppartMapper {
         appart.setNbrSalleDeBainMin(dto.getNbrSalleDeBainMin());
         appart.setEtageMax(dto.getEtageMax());
 
-        // Convert QuartierDto to Quartier
-        if (dto.getQuartier() != null) {
-            appart.setQuartier(QuartierMapper.mapToEntity(dto.getQuartier()));
-        }
+        appart.setQuartier(dto.getQuartier());
         return appart;
     }
 }

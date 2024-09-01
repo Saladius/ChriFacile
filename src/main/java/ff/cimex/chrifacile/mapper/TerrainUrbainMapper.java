@@ -11,10 +11,7 @@ public class TerrainUrbainMapper {
     public static TerrainUrbainDto mapToDto(TerrainUrbain terrainUrbain) {
         TerrainUrbainDto dto = new TerrainUrbainDto();
 
-        // Convert Quartier to QuartierDto
-        if (terrainUrbain.getQuartier() != null) {
-            dto.setQuartier(QuartierMapper.mapToDto(terrainUrbain.getQuartier()));
-        }
+        dto.setQuartier(terrainUrbain.getQuartier());
 
         // Convert Autorisation to AutorisationDto
         if (terrainUrbain.getAuthorization() != null) {
@@ -28,10 +25,7 @@ public class TerrainUrbainMapper {
     public static TerrainUrbain mapToEntity(TerrainUrbainDto dto) {
         TerrainUrbain terrainUrbain = new TerrainUrbain();
 
-        // Convert QuartierDto to Quartier
-        if (dto.getQuartier() != null) {
-            terrainUrbain.setQuartier(QuartierMapper.mapToEntity(dto.getQuartier()));
-        }  
+        terrainUrbain.setQuartier(dto.getQuartier());
 
         // Convert AutorisationDto to Autorisation
         if (dto.getAuthorization() != null) {

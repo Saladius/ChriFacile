@@ -4,7 +4,6 @@ package ff.cimex.chrifacile.service.impl;
 import ff.cimex.chrifacile.entity.*;
 import ff.cimex.chrifacile.mapper.AnnonceMapper;
 import ff.cimex.chrifacile.repository.AnnonceRepository;
-import ff.cimex.chrifacile.repository.VilleRepository;
 import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.service.AnnonceService;
 import ff.cimex.chrifacile.util.CompareUtil;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AnnonceServiceImpl implements AnnonceService {
     private AnnonceRepository annonceRepository;
-    private VilleRepository villeRepository;
 
     @Override
     public Annonce addAnnonce(AnnonceDto annonceDto) {
@@ -38,7 +36,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public List<AnnonceDto> getAnnoncesByFilter(FilterDto filter) {
         LocalDateTime dateOfLastVisibleAnnonces = LocalDate.now().minusDays(15).atStartOfDay();
-        List<Annonce> annonces = annonceRepository.findByTypeAndCreatedAtAfterAndVilleNomVille(filter.getType(), dateOfLastVisibleAnnonces, filter.getVilleDto().getNomVille());
+        List<Annonce> annonces = annonceRepository.findByTypeAndCreatedAtAfterAndVille(filter.getType(), dateOfLastVisibleAnnonces, filter.getVilleDto());
         return annonces.stream().filter(annonce -> isFilteredBySuperficie(annonce, filter.getSuperficie()))
                 .filter(annonce -> isFilteredByPrix(annonce, filter.getPrix()))
                 .filter(annonce -> isFilteredByPrerequisiteofType(annonce, filter))
@@ -122,9 +120,8 @@ public class AnnonceServiceImpl implements AnnonceService {
         return CompareUtil.oneIsNull(etageActuel, appart.getEtageMax()) || appart.getEtageMax() >= etageActuel;
     }
 
-    private boolean isFilteredByQuartier(Quartier quartier, QuartierDto quartierDto) {
-        return CompareUtil.oneIsNull(quartier, quartierDto) || CompareUtil.oneIsNull(quartier.getNomQuartier(), quartierDto.getNomQuartier())
-                || quartier.getNomQuartier().equals(quartierDto.getNomQuartier());
+    private boolean isFilteredByQuartier(String quartier, String quartierDto) {
+        return CompareUtil.oneIsNull(quartier, quartierDto) || quartier.contains(quartierDto);
     }
 
     private boolean isFilteredByAuthorization(Authorization authorization, AuthorizationDto authorizationDto) {

@@ -14,9 +14,8 @@ public class TerrainUrbain extends AbstractAudit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTerrainUrbain;
 
-    @ManyToOne
-    @JoinColumn(name = "id_quartier")
-    private Quartier quartier;
+
+    private String quartier;
 
     @ManyToOne
     @JoinColumn(name = "name_autorisation")

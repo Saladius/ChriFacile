@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
 
-    List<Annonce> findByTypeAndCreatedAtAfterAndVilleNomVille(Type type, LocalDateTime date, String villeName);
+    List<Annonce> findByTypeAndCreatedAtAfterAndVille(Type type, LocalDateTime date, String villeName);
 }
