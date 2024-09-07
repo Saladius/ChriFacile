@@ -8,6 +8,8 @@ import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.service.AnnonceService;
 import ff.cimex.chrifacile.util.CompareUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -36,7 +38,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public List<AnnonceDto> getAnnoncesByFilter(FilterDto filter) {
         LocalDateTime dateOfLastVisibleAnnonces = LocalDate.now().minusDays(15).atStartOfDay();
-        List<Annonce> annonces = annonceRepository.findByTypeAndCreatedAtAfterAndVille(filter.getType(), dateOfLastVisibleAnnonces, filter.getVilleDto());
+        List<Annonce> annonces = annonceRepository.findAllByTypeAndCreatedAtAfterAndVille(filter.getType(), dateOfLastVisibleAnnonces, filter.getVilleDto());
         return annonces.stream().filter(annonce -> isFilteredBySuperficie(annonce, filter.getSuperficie()))
                 .filter(annonce -> isFilteredByPrix(annonce, filter.getPrix()))
                 .filter(annonce -> isFilteredByPrerequisiteofType(annonce, filter))
@@ -47,6 +49,15 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public AnnonceDto getAnnonceById(Long id) {
         return AnnonceMapper.mapToDto(annonceRepository.getReferenceById(id));
+    }
+
+    @Override
+    public Page<AnnonceDto> getAllAnnonces(Pageable pageable) {
+        LocalDateTime dateLimit = LocalDateTime.now().minusDays(15);
+        Page<Annonce> annoncesPage = annonceRepository.findAllByCreatedAtAfter(dateLimit, pageable);
+
+        // Map the Page of Annonce entities to a Page of AnnonceDto
+        return annoncesPage.map(AnnonceMapper::mapToDto);
     }
 
     private boolean isFilteredByPrerequisiteofType(Annonce annonce, FilterDto filterDto) {

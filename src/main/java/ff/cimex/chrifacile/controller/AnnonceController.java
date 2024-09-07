@@ -5,6 +5,9 @@ import ff.cimex.chrifacile.request.dto.FilterDto;
 import ff.cimex.chrifacile.entity.Annonce;
 import ff.cimex.chrifacile.service.AnnonceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +46,16 @@ public class AnnonceController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // Endpoint to fetch annonces created in the last 15 days, with pagination
+    @GetMapping("/")
+    public ResponseEntity<Page<AnnonceDto>> getRecentAnnonces(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<AnnonceDto> recentAnnonce = annonceService.getAllAnnonces(pageable);
+        return new ResponseEntity<>(recentAnnonce, HttpStatus.OK);
     }
 }
