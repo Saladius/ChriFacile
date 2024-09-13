@@ -20,7 +20,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("$DOCKER_IMAGE:$DOCKER_TAG", "--no-cache")
+                    // Ensure the build context is specified (usually '.' for the current directory)
+                    docker.build("$DOCKER_IMAGE:$DOCKER_TAG", "--no-cache .")
                 }
             }
         }
