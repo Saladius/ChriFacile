@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_IMAGE = 'saladius/chrifacile'
+        DOCKER_TAG = 'latest'
+         // Adjust the path to match your Java installation
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                 bat 'mvnw.cmd clean package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("$DOCKER_IMAGE:$DOCKER_TAG")
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        docker.image("$DOCKER_IMAGE:$DOCKER_TAG").push()
+                    }
+                }
+            }
+        }
+    }
+}
+
