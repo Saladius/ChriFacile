@@ -14,7 +14,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                 bat 'mvnw.cmd clean package'
+                bat 'mvnw.cmd clean package'
+                script {
+                    if (!fileExists('target/chrifacile-1.0-SNAPSHOT.jar')) {
+                        error("JAR file not found! Build failed.")
+                    }
+                }
             }
         }
         stage('Build Docker Image') {
