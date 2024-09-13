@@ -16,7 +16,7 @@ pipeline {
             steps {
                 bat 'mvnw.cmd clean package'
                 script {
-                    if (!fileExists('target/chrifacile-1.0-SNAPSHOT.jar')) {
+                    if (!fileExists('target/chrifacile-0.0.1-SNAPSHOT.jar')) {
                         error("JAR file not found! Build failed.")
                     }
                 }
