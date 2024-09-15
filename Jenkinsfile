@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'saladius/chrifacile'
         DOCKER_TAG = 'latest'
-        // Adjust the path to match your Java installation
+         // Adjust the path to match your Java installation
         JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17'
     }
     stages {
@@ -39,20 +39,6 @@ pipeline {
                 }
             }
         }
-        stage('Deploy with Docker Compose') {
-            steps {
-                script {
-                    sh 'docker-compose down || true' // Stops any existing containers
-                    sh 'docker-compose up -d' // Brings up the new containers
-                }
-            }
-        }
-    }
-    post {
-        always {
-            script {
-                sh 'docker-compose down' // Clean up containers after pipeline finishes
-            }
-        }
     }
 }
+
