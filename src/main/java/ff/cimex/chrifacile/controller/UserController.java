@@ -26,7 +26,8 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto request) {
         userService.registerUser(request);
-        return new ResponseEntity<>("L'utilisateur a été enregistré avec succès !", HttpStatus.CREATED);
+        String jwt = userService.getJwtToken(request.getUsername(),request.getPassword());
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
     @GetMapping("/verify")
@@ -35,17 +36,14 @@ public class UserController {
         return null;
     }
 
-   /*@PostMapping("/login")
+   @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
-       Authentication authentication = authenticationManager.authenticate(
-               new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-
-       SecurityContextHolder.getContext().setAuthentication(authentication);
-       String jwt = jwtUtil.generateToken(authentication);
+       String jwt = userService.getJwtToken(request.getUsername(),request.getPassword());
        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-    @PostMapping("/logout")
+
+    /*@PostMapping("/logout")
     public ResponseEntity<?> logoutUser() {
         // Code pour déconnecter l'utilisateur
         return null;

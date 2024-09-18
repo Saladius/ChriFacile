@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtProvider {
 
-    private final String SECRET_KEY = "YourJwtSecret";
+    private final String SECRET_KEY = "Fahlkaria+632q9sd6aiosdfjzqf4zef14sfq6sf1zee14f1scv1xd35ssh";
     private final long EXPIRATION_TIME = 60 * 60 * 1000; // 1 hour in milliseconds    
 
     public String generateJwtToken(Authentication authentication) {
@@ -37,9 +37,12 @@ public class JwtProvider {
                 .compact();
     }
 
-    public boolean validateJwtToken(String token) {
-        Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-        return true;
+    public Claims validateJwtToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY.getBytes()) // Ensure the secret key is byte array
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public String getUsernameFromToken(String token) {
@@ -57,7 +60,11 @@ public class JwtProvider {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY.getBytes()) // Ensure the secret key is byte array
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
 }

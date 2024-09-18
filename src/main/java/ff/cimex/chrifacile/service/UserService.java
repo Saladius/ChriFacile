@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 
     UserEntity registerUser(UserRegistrationDto userRegistrationDto);
-
+    String getJwtToken(String username, String password);
 }

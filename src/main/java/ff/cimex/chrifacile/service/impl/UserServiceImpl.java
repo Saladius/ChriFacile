@@ -7,7 +7,12 @@ import ff.cimex.chrifacile.exception.EmailExistsException;
 import ff.cimex.chrifacile.exception.UsernameExistsException;
 import ff.cimex.chrifacile.repository.UserRepository;
 import ff.cimex.chrifacile.service.UserService;
+import ff.cimex.chrifacile.util.JwtUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +23,8 @@ import java.util.Collections;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private final JwtUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
 
 
     @Override
@@ -37,5 +44,14 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Collections.singleton(Role.ROLE_VENDEUR));
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public String getJwtToken(String username, String password) {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return jwtUtil.generateToken(authentication);
     }
 }
