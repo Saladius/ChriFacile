@@ -48,4 +48,6 @@ public class Annonce extends AbstractAudit {
     private String nomAcheteur;
 
     private String numTelephone;
+
+    private String description;
 }

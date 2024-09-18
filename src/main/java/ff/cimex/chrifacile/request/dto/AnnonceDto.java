@@ -18,4 +18,5 @@ public class AnnonceDto {
     private TerrainUrbainDto terrainUrbainDto;
     private String nomAcheteur;
     private String numTelephone;
+    private String description;
 }

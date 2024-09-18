@@ -22,6 +22,7 @@ public class AnnonceMapper {
         dto.setVille(annonce.getVille());
         dto.setNomAcheteur(annonce.getNomAcheteur());
         dto.setNumTelephone(annonce.getNumTelephone());
+        dto.setDescription(annonce.getDescription());
 
         if(Objects.nonNull(annonce.getAppart())) {
             dto.setAppartDto(AppartMapper.mapToDto(annonce.getAppart()));
@@ -48,6 +49,7 @@ public class AnnonceMapper {
         annonce.setPrixMin(dto.getPrixMin());
         annonce.setNomAcheteur(dto.getNomAcheteur());
         annonce.setNumTelephone(dto.getNumTelephone());
+        annonce.setDescription(dto.getDescription());
 
         annonce.setVille(dto.getVille());
         if(Objects.nonNull(dto.getAppartDto())) {
