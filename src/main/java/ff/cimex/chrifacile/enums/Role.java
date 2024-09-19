@@ -1,8 +1,6 @@
 package ff.cimex.chrifacile.enums;
 
-import lombok.Data;
 import lombok.Getter;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Getter
 public enum Role {

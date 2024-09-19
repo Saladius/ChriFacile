@@ -2,7 +2,6 @@ package ff.cimex.chrifacile.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 

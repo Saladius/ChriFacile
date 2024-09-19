@@ -24,4 +24,6 @@ public class UserEntity extends AbstractAudit {
     @Enumerated(EnumType.STRING)
     private Collection<Role> roles;
 
+    private String googleToken;
+    private String facebookToken;
 }

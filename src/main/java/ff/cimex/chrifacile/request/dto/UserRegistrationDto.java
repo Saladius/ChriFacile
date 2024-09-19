@@ -1,6 +1,5 @@
 package ff.cimex.chrifacile.request.dto;
 
-import com.fasterxml.jackson.databind.util.internal.PrivateMaxEntriesMap;
 import lombok.Data;
 
 @Data

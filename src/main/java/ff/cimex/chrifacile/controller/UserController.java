@@ -1,17 +1,15 @@
 package ff.cimex.chrifacile.controller;
 
+import ff.cimex.chrifacile.entity.UserEntity;
 import ff.cimex.chrifacile.request.dto.LoginRequest;
 import ff.cimex.chrifacile.request.dto.UserRegistrationDto;
+import ff.cimex.chrifacile.request.dto.UserRegistrationFacebookDto;
+import ff.cimex.chrifacile.request.dto.UserRegistrationGoogleDto;
 import ff.cimex.chrifacile.response.dto.JwtAuthenticationResponse;
 import ff.cimex.chrifacile.service.UserService;
-import ff.cimex.chrifacile.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,80 +18,76 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto request) {
-        userService.registerUser(request);
-        String jwt = userService.getJwtToken(request.getUsername(),request.getPassword());
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        UserEntity user = userService.registerUser(request);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else {
+            String jwt = userService.getJwtToken(request.getUsername(), request.getPassword());
+            if (jwt != null) {
+                return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        }
     }
 
-    @GetMapping("/verify")
-    public ResponseEntity<?> verifyEmail(@RequestParam("token") String token) {
-        // Code pour vérifier l'e-mail
-        return null;
+    @GetMapping("/login")
+    public ResponseEntity<?> loginUser(LoginRequest request) {
+        String jwt = userService.getJwtToken(request.getUsername(), request.getPassword());
+        if (jwt != null) {
+            return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-   @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
-       String jwt = userService.getJwtToken(request.getUsername(),request.getPassword());
-       return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+    @PostMapping("/register/google")
+    public ResponseEntity<?> registerUserWithGoogle(@RequestBody UserRegistrationGoogleDto request) {
+
+        UserEntity user = userService.registerUserWithGoogle(request);
+        if (user != null) {
+            String jwt = userService.getJwtToken(user.getUsername(), user.getPassword());
+            if (jwt != null) {
+                return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
-
-    /*@PostMapping("/logout")
-    public ResponseEntity<?> logoutUser() {
-        // Code pour déconnecter l'utilisateur
-        return null;
+    @GetMapping("/login/google")
+    public ResponseEntity<?> loginUserWithGoogle(UserRegistrationGoogleDto request) {
+        UserEntity user = userService.loginWithGoogle(request);
+        return getResponseEntity(user);
     }
 
-    @GetMapping("/profile")
-    public ResponseEntity<?> getUserProfile() {
-        // Code pour obtenir les informations du profil utilisateur
-        return null;
+    @PostMapping("/register/facebook")
+    public ResponseEntity<?> registerUserWithFacebook(@RequestBody UserRegistrationFacebookDto request) {
+        UserEntity user = userService.registerUserWithFacebook(request);
+        return getResponseEntity(user);
     }
 
-    @PutMapping("/profile")
-    public ResponseEntity<?> updateUserProfile(@RequestBody UserProfileUpdateRequest request) {
-        // Code pour mettre à jour les informations du profil utilisateur
-        return null;
+    @GetMapping("/login/facebook")
+    public ResponseEntity<?> loginUserWithFacebook(@RequestBody UserRegistrationFacebookDto request) {
+        UserEntity user = userService.loginWithFacebook(request);
+        return getResponseEntity(user);
     }
 
-    @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest request) {
-        // Code pour initier la procédure de récupération de mot de passe
-        return null;
+    private ResponseEntity<?> getResponseEntity(UserEntity user) {
+        if (user != null) {
+            String jwt = userService.getJwtToken(user.getUsername(), user.getPassword());
+            if (jwt != null) {
+                return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
-        // Code pour réinitialiser le mot de passe
-        return null;
-    }
-
-    @PutMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
-        // Code pour permettre à l'utilisateur de changer son mot de passe
-        return null;
-    }
-
-    @PostMapping("/refresh-token")
-    public ResponseEntity<?> refreshToken(@RequestBody TokenRefreshRequest request) {
-        // Code pour rafraîchir le token d'authentification
-        return null;
-    }
-
-    @PostMapping("/resend-verification-email")
-    public ResponseEntity<?> resendVerificationEmail(@RequestBody ResendVerificationEmailRequest request) {
-        // Code pour renvoyer l'e-mail de vérification
-        return null;
-    }
-
-    @DeleteMapping("/delete-account")
-    public ResponseEntity<?> deleteAccount(@RequestBody DeleteAccountRequest request) {
-        // Code pour permettre à l'utilisateur de supprimer son compte
-        return null;
-    }*/
 }

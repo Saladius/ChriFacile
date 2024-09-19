@@ -3,7 +3,6 @@ package ff.cimex.chrifacile.filter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class JwtProvider {
 
     private final String SECRET_KEY = "Fahlkaria+632q9sd6aiosdfjzqf4zef14sfq6sf1zee14f1scv1xd35ssh";
-    private final long EXPIRATION_TIME = 60 * 60 * 1000; // 1 hour in milliseconds    
+    private static final long EXPIRATION_TIME = 60 * 60 * 1000; // 1 hour in milliseconds
 
     public String generateJwtToken(Authentication authentication) {
 
