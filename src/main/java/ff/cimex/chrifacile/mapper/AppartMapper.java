@@ -25,6 +25,7 @@ public class AppartMapper {
         dto.setNbrSalleDeBainMax(appart.getNbrSalleDeBainMax());
         dto.setNbrSalleDeBainMin(appart.getNbrSalleDeBainMin());
         dto.setEtageMax(appart.getEtageMax());
+        dto.setEtageMin(appart.getEtageMin());
         dto.setQuartier(appart.getQuartier());
     }
 
@@ -34,6 +35,7 @@ public class AppartMapper {
         appart.setNbrSalleDeBainMax(dto.getNbrSalleDeBainMax());
         appart.setNbrSalleDeBainMin(dto.getNbrSalleDeBainMin());
         appart.setEtageMax(dto.getEtageMax());
+        appart.setEtageMin(dto.getEtageMin());
         appart.setQuartier(dto.getQuartier());
     }
 }

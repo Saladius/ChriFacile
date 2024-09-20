@@ -1,16 +1,16 @@
 package ff.cimex.chrifacile.service.impl;
 
+import ff.cimex.chrifacile.constant.ConfigConstant;
 import ff.cimex.chrifacile.entity.UserEntity;
 import ff.cimex.chrifacile.enums.Role;
 import ff.cimex.chrifacile.exception.EmailExistsException;
 import ff.cimex.chrifacile.exception.UsernameExistsException;
 import ff.cimex.chrifacile.repository.UserRepository;
-import ff.cimex.chrifacile.request.dto.UserRegistrationDto;
-import ff.cimex.chrifacile.request.dto.UserRegistrationFacebookDto;
-import ff.cimex.chrifacile.request.dto.UserRegistrationGoogleDto;
+import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.service.UserService;
 import ff.cimex.chrifacile.util.JwtUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,8 +29,6 @@ public class UserServiceImpl implements UserService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
-    @Value("${socialmedia.account.password}")
-    private static String socialMediaAccountPassword;
 
 
     @Override
@@ -61,7 +59,7 @@ public class UserServiceImpl implements UserService {
             user.setUsername(username);
             user.setEmail(request.getEmail());
             user.setRoles(Collections.singleton(Role.ROLE_VENDEUR));
-            user.setPassword(socialMediaAccountPassword);
+            user.setPassword(new BCryptPasswordEncoder().encode(ConfigConstant.SOCIAL_MEDIA_PASSWORD_ACCOUNT));
         }
         user.setGoogleToken(request.getGoogleToken());
         return userRepository.save(user);
@@ -76,19 +74,19 @@ public class UserServiceImpl implements UserService {
             user.setUsername(username);
             user.setEmail(request.getEmail());
             user.setRoles(Collections.singleton(Role.ROLE_VENDEUR));
-            user.setPassword(socialMediaAccountPassword);
+            user.setPassword(new BCryptPasswordEncoder().encode(ConfigConstant.SOCIAL_MEDIA_PASSWORD_ACCOUNT));
         }
         user.setFacebookToken(request.getFacebookToken());
         return userRepository.save(user);
     }
 
     @Override
-    public UserEntity loginWithGoogle(UserRegistrationGoogleDto request) {
+    public UserEntity loginWithGoogle(LoginRequestWithGoogle request) {
         return userRepository.findByGoogleToken(request.getGoogleToken()).orElse(null);
     }
 
     @Override
-    public  UserEntity loginWithFacebook(UserRegistrationFacebookDto request){
+    public  UserEntity loginWithFacebook(LoginRequestWithFacebook request){
         return userRepository.findByFacebookToken(request.getFacebookToken()).orElse(null);
     }
 

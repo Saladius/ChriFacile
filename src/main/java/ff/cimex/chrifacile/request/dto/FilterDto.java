@@ -9,7 +9,8 @@ public class FilterDto {
     private String villeDto;
 
     private Double superficie;
-    private Long prix;
+    private Long prixMin;
+    private Long prixMax;
 
     private AppartDto appartDto;
     private TerrainAgricoleDto terrainAgricoleDto;

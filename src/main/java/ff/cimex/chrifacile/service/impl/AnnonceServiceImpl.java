@@ -40,7 +40,7 @@ public class AnnonceServiceImpl implements AnnonceService {
         LocalDateTime dateOfLastVisibleAnnonces = LocalDate.now().minusDays(15).atStartOfDay();
         List<Annonce> annonces = annonceRepository.findAllByTypeAndCreatedAtAfterAndVille(filter.getType(), dateOfLastVisibleAnnonces, filter.getVilleDto());
         return annonces.stream().filter(annonce -> isFilteredBySuperficie(annonce, filter.getSuperficie()))
-                .filter(annonce -> isFilteredByPrix(annonce, filter.getPrix()))
+                .filter(annonce -> isFilteredByPrix(annonce, filter.getPrixMin(), filter.getPrixMax()))
                 .filter(annonce -> isFilteredByPrerequisiteofType(annonce, filter))
                 .map(AnnonceMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -109,10 +109,17 @@ public class AnnonceServiceImpl implements AnnonceService {
                 && (annonce.getSuperficieMax() == null || annonce.getSuperficieMax() >= superficie));
     }
 
-    private boolean isFilteredByPrix(Annonce annonce, Long prix) {
-        return prix == null
-                || ((annonce.getPrixMin() == null || annonce.getPrixMin() <= prix)
-                && (annonce.getPrixMax() == null || annonce.getPrixMax() >= prix));
+    private boolean isFilteredByPrix(Annonce annonce, Long prixMin, Long prixMax) {
+        Long annoncePrixMin = annonce.getPrixMin();
+        Long annoncePrixMax = annonce.getPrixMax();
+
+        // Check if there is any overlap between the two intervals
+        if (annoncePrixMin == null || annoncePrixMax == null || prixMin == null || prixMax == null) {
+            return false; // If any of the prices are null, we cannot filter
+        }
+
+        // Check for overlap
+        return annoncePrixMax >= prixMin && prixMax >= annoncePrixMin;
     }
 
     private boolean isFilteredByNbrChambre(Appart appart, Integer nbrChambre) {

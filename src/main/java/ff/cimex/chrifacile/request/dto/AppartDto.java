@@ -16,4 +16,5 @@ public class AppartDto {
 
     private Integer etageMax;
     private Integer etageActuel;
+    private Integer etageMin;
 }

@@ -28,4 +28,5 @@ public class Appart extends AbstractAudit {
     private Annonce annonce;
 
     private Integer etageMax;
+    private Integer etageMin;
 }
