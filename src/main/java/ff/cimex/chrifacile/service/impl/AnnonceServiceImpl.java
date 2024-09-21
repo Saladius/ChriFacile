@@ -7,6 +7,7 @@ import ff.cimex.chrifacile.repository.AnnonceRepository;
 import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.service.AnnonceService;
 import ff.cimex.chrifacile.util.CompareUtil;
+import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -104,7 +105,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     }
 
     private boolean isFilteredBySuperficie(Annonce annonce, Double superficie) {
-        return superficie == null
+        return superficie == null || superficie == 0.0
                 || ((annonce.getSuperficieMin() == null || annonce.getSuperficieMin() <= superficie)
                 && (annonce.getSuperficieMax() == null || annonce.getSuperficieMax() >= superficie));
     }
@@ -119,27 +120,27 @@ public class AnnonceServiceImpl implements AnnonceService {
         }
 
         // Check for overlap
-        return annoncePrixMax >= prixMin && prixMax >= annoncePrixMin;
+        return (prixMin == 0 || annoncePrixMax==0 || annoncePrixMax >= prixMin) && (prixMax==0 || annoncePrixMin==0 || prixMax >= annoncePrixMin);
     }
 
     private boolean isFilteredByNbrChambre(Appart appart, Integer nbrChambre) {
-        return nbrChambre == null
-                || ((appart.getNbrChambreMin() == null || appart.getNbrChambreMin() <= nbrChambre)
-                && (appart.getNbrChambreMax() == null || appart.getNbrChambreMax() >= nbrChambre));
+        return nbrChambre == null || nbrChambre == 0
+                || ((appart.getNbrChambreMin() == null || appart.getNbrChambreMin() == 0 || appart.getNbrChambreMin() <= nbrChambre)
+                && (appart.getNbrChambreMax() == null || appart.getNbrChambreMax() ==0 || appart.getNbrChambreMax() >= nbrChambre));
     }
 
     private boolean isFilteredByNbrSalleDeBain(Appart appart, Integer nbrSalleDeBain) {
-        return nbrSalleDeBain == null
-                || ((appart.getNbrSalleDeBainMin() == null || appart.getNbrSalleDeBainMin() <= nbrSalleDeBain)
-                && (appart.getNbrSalleDeBainMax() == null || appart.getNbrSalleDeBainMax() >= nbrSalleDeBain));
+        return nbrSalleDeBain == null || nbrSalleDeBain==0
+                || ((appart.getNbrSalleDeBainMin() == null || appart.getNbrSalleDeBainMin() == 0 || appart.getNbrSalleDeBainMin() <= nbrSalleDeBain)
+                && (appart.getNbrSalleDeBainMax() == null || appart.getNbrSalleDeBainMax() == 0 || appart.getNbrSalleDeBainMax() >= nbrSalleDeBain));
     }
 
     private boolean isFilteredByEtage(Appart appart, Integer etageActuel) {
-        return CompareUtil.oneIsNull(etageActuel, appart.getEtageMax()) || appart.getEtageMax() >= etageActuel;
+        return CompareUtil.oneIsNull(etageActuel, appart.getEtageMax(),appart.getEtageMin()) || CompareUtil.oneIntegerIsZero(etageActuel,appart.getEtageMax()) ||  (appart.getEtageMax() >= etageActuel && appart.getEtageMin() <= etageActuel);
     }
 
     private boolean isFilteredByQuartier(String quartier, String quartierDto) {
-        return CompareUtil.oneIsNull(quartier, quartierDto) || quartier.contains(quartierDto);
+        return CompareUtil.oneIsNull(quartier, quartierDto) || CompareUtil.oneStringIsEmpty(quartier,quartierDto) || quartier.contains(quartierDto);
     }
 
     private boolean isFilteredByAuthorization(Authorization authorization, AuthorizationDto authorizationDto) {
