@@ -116,7 +116,7 @@ public class AnnonceServiceImpl implements AnnonceService {
 
         // Check if there is any overlap between the two intervals
         if (annoncePrixMin == null || annoncePrixMax == null || prixMin == null || prixMax == null) {
-            return false; // If any of the prices are null, we cannot filter
+            return true; // If any of the prices are null, we cannot filter
         }
 
         // Check for overlap
