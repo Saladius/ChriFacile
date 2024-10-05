@@ -15,4 +15,6 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
 
     List<Annonce> findAllByTypeAndCreatedAtAfterAndVille(Type type, LocalDateTime date, String villeName);
     Page<Annonce> findAllByCreatedAtAfter(LocalDateTime date, Pageable pageable);
+    List<Annonce> findAllByType(Type type);
+    List<Annonce> findAllByTypeAndCreatedAtAfter(Type type, LocalDateTime date);
 }

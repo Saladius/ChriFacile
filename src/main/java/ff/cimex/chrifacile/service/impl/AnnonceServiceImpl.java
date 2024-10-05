@@ -2,6 +2,7 @@ package ff.cimex.chrifacile.service.impl;
 
 
 import ff.cimex.chrifacile.entity.*;
+import ff.cimex.chrifacile.enums.Type;
 import ff.cimex.chrifacile.mapper.AnnonceMapper;
 import ff.cimex.chrifacile.repository.AnnonceRepository;
 import ff.cimex.chrifacile.request.dto.*;
@@ -39,7 +40,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public List<AnnonceDto> getAnnoncesByFilter(FilterDto filter) {
         LocalDateTime dateOfLastVisibleAnnonces = LocalDate.now().minusDays(15).atStartOfDay();
-        List<Annonce> annonces = annonceRepository.findAllByTypeAndCreatedAtAfterAndVille(filter.getType(), dateOfLastVisibleAnnonces, filter.getVilleDto());
+        List<Annonce> annonces = annonceRepository.findAllByTypeAndCreatedAtAfterAndVille(filter.getType(), dateOfLastVisibleAnnonces, filter.getVille());
         return annonces.stream().filter(annonce -> isFilteredBySuperficie(annonce, filter.getSuperficie()))
                 .filter(annonce -> isFilteredByPrix(annonce, filter.getPrixMin(), filter.getPrixMax()))
                 .filter(annonce -> isFilteredByPrerequisiteofType(annonce, filter))
@@ -143,13 +144,17 @@ public class AnnonceServiceImpl implements AnnonceService {
         return CompareUtil.oneIsNull(quartier, quartierDto) || CompareUtil.oneStringIsEmpty(quartier,quartierDto) || quartier.contains(quartierDto);
     }
 
-    private boolean isFilteredByAuthorization(Authorization authorization, AuthorizationDto authorizationDto) {
-        return CompareUtil.oneIsNull(authorization, authorizationDto, authorization.getNameAuthorization(), authorizationDto.getNameAutorisation())
-                || authorization.getNameAuthorization().equals(authorizationDto.getNameAutorisation());
+    private boolean isFilteredByAuthorization(String authorization, String authorizationDto) {
+        return CompareUtil.oneIsNull(authorization, authorizationDto)
+                || authorization.equals(authorizationDto);
     }
 
 
     private Annonce remplirAnnonce(AnnonceDto annonceDto) {
-        return AnnonceMapper.mapToEntity(annonceDto);
+        Annonce annonce =AnnonceMapper.mapToEntity(annonceDto);
+        if(annonceDto.getType().equals(Type.TYPE_TERRAIN_URBAIN)){
+
+        }
+        return annonce;
     }
 }

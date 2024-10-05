@@ -15,7 +15,7 @@ public class TerrainUrbainMapper {
 
         // Convert Autorisation to AutorisationDto
         if (terrainUrbain.getAuthorization() != null) {
-            dto.setAuthorization(AuthorizationMapper.mapToDto(terrainUrbain.getAuthorization()));
+            dto.setAuthorization(terrainUrbain.getAuthorization());
         }
 
         return dto;
@@ -29,8 +29,8 @@ public class TerrainUrbainMapper {
 
         // Convert AutorisationDto to Autorisation
         if (dto.getAuthorization() != null) {
-            terrainUrbain.setAuthorization(AuthorizationMapper.mapToEntity(dto.getAuthorization()));
-        }        
+            terrainUrbain.setAuthorization(dto.getAuthorization());
+        }
 
         return terrainUrbain;
     }

@@ -6,5 +6,5 @@ import lombok.Data;
 public class TerrainUrbainDto {
 
     private String quartier;
-    private AuthorizationDto authorization;
+    private String authorization;
 }
