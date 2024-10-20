@@ -3,10 +3,24 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'saladius/chrifacile'
         DOCKER_TAG = 'latest'
-         // Adjust the path to match your Java installation
-        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17'
+        // Define JAVA_HOME paths for both Windows and Linux
+        JAVA_HOME_WINDOWS = 'C:\\Program Files\\Java\\jdk-17'
+        JAVA_HOME_LINUX = '/usr/lib/jvm/java-17-openjdk' // Example for Linux
     }
     stages {
+        stage('Set JAVA_HOME') {
+            steps {
+                script {
+                    // Set JAVA_HOME based on the operating system
+                    if (isUnix()) {
+                        env.JAVA_HOME = JAVA_HOME_LINUX
+                    } else {
+                        env.JAVA_HOME = JAVA_HOME_WINDOWS
+                    }
+                    echo "JAVA_HOME is set to ${env.JAVA_HOME}"
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
@@ -14,9 +28,18 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvnw.cmd clean package'
                 script {
-                    if (!fileExists('target/chrifacile-0.0.1-SNAPSHOT.jar')) {
+                    if (isUnix()) {
+                        // Use shell for Linux/Unix systems
+                        sh './mvnw clean package'
+                    } else {
+                        // Use batch script for Windows systems
+                        bat 'mvnw.cmd clean package'
+                    }
+                }
+                script {
+                    def jarFile = 'target/chrifacile-0.0.1-SNAPSHOT.jar'
+                    if (!fileExists(jarFile)) {
                         error("JAR file not found! Build failed.")
                     }
                 }
@@ -41,4 +64,3 @@ pipeline {
         }
     }
 }
-
