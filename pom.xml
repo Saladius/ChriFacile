@@ -116,6 +116,14 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId> <!-- Ensure you're using a recent version -->
+				<configuration>
+					<source>17</source> <!-- Specify Java 17 source compatibility -->
+					<target>17</target> <!-- Specify Java 17 target compatibility -->
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
