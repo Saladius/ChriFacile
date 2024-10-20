@@ -3,7 +3,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'saladius/chrifacile'
         DOCKER_TAG = 'latest'
-        // Define JAVA_HOME paths for both Windows and Linux
         JAVA_HOME_WINDOWS = 'C:\\Program Files\\Java\\jdk-17'
         JAVA_HOME_LINUX = '/usr/lib/jvm/java-17-openjdk' // Example for Linux
     }
@@ -30,6 +29,8 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
+                        // Set executable permissions for the mvnw script
+                        sh 'chmod +x ./mvnw'
                         // Use shell for Linux/Unix systems
                         sh './mvnw clean package'
                     } else {
