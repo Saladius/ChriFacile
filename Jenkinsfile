@@ -4,7 +4,7 @@ pipeline {
         DOCKER_IMAGE = 'saladius/chrifacile'
         DOCKER_TAG = 'latest'
         JAVA_HOME_WINDOWS = 'C:\\Program Files\\Java\\jdk-17'
-        JAVA_HOME_LINUX = '/usr/lib/jvm/java-17-openjdk' // Example for Linux
+        JAVA_HOME_LINUX = '/usr/lib/jvm/java-17-openjdk-17.0.13.0.11-3.el9.alma.1.x86_64' // Example for Linux
     }
     stages {
         stage('Set JAVA_HOME') {
