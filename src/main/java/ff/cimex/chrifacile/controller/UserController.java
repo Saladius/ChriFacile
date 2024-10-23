@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -66,6 +68,20 @@ public class UserController {
         UserEntity user = userService.loginWithFacebook(request);
         return getResponseEntity(user);
     }
+
+    @GetMapping("/verify-subscription")
+    public ResponseEntity<?> verifySubscription(@RequestParam String token) {
+        Date date = userService.userHaveValidSubscription();
+        return ResponseEntity.ok(date);
+    }
+
+
+    @PostMapping("/subscribe")
+    public ResponseEntity<?> subscribeNewAbonnement(@RequestBody AbonnementDto abonnementDto) {
+        userService.subscribNewAbonnement(abonnementDto);
+        return ResponseEntity.noContent().build();
+    }
+
 
     private ResponseEntity<?> getResponseEntity(UserEntity user) {
         if (user != null) {

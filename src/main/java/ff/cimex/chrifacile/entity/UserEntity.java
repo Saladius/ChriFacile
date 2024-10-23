@@ -24,6 +24,9 @@ public class UserEntity extends AbstractAudit {
     @Enumerated(EnumType.STRING)
     private Collection<Role> roles;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Vendeur vendeur;
+
     private String googleToken;
     private String facebookToken;
 }

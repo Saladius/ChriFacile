@@ -4,6 +4,8 @@ import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public interface UserService {
 
@@ -18,4 +20,10 @@ public interface UserService {
     UserEntity loginWithFacebook(LoginRequestWithFacebook request);
 
     String getJwtToken(String username, String password);
+
+    UserEntity getCurrentUser();
+
+    Date userHaveValidSubscription();
+
+    void subscribNewAbonnement(AbonnementDto abonnement);
 }

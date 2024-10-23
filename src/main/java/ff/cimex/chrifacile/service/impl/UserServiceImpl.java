@@ -1,12 +1,16 @@
 package ff.cimex.chrifacile.service.impl;
 
 import ff.cimex.chrifacile.constant.ConfigConstant;
+import ff.cimex.chrifacile.entity.Abonnement;
+import ff.cimex.chrifacile.entity.AchatAbonnement;
 import ff.cimex.chrifacile.entity.UserEntity;
 import ff.cimex.chrifacile.enums.Role;
 import ff.cimex.chrifacile.exception.EmailExistsException;
 import ff.cimex.chrifacile.exception.UsernameExistsException;
+import ff.cimex.chrifacile.exception.UsernameNotFoundException;
 import ff.cimex.chrifacile.repository.UserRepository;
 import ff.cimex.chrifacile.request.dto.*;
+import ff.cimex.chrifacile.service.AbonnementService;
 import ff.cimex.chrifacile.service.UserService;
 import ff.cimex.chrifacile.util.JwtUtil;
 import lombok.AllArgsConstructor;
@@ -20,14 +24,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final AbonnementService abonnementService;
 
 
 
@@ -103,6 +110,32 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public UserEntity getCurrentUser() {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Override
+    public Date userHaveValidSubscription() {
+
+        List<AchatAbonnement> abonnements = getCurrentUser().getVendeur().getAbonnements();
+
+        if(abonnementService.isThereAnActifAbonnement(abonnements)){
+            return new Date();
+        }
+        return null;
+    }
+
+    @Override
+    public void subscribNewAbonnement(AbonnementDto abonnementDto) {
+        UserEntity user = getCurrentUser();
+        Abonnement abonnement = abonnementService.getOrCreateAbonnement(abonnementDto);
+
+        abonnementService.subscribNewAbonnement(abonnement, user.getVendeur());
     }
 
     private String generateUsername(String fullname) {
