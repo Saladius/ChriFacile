@@ -8,5 +8,5 @@ ENV SPRING_DATASOURCE_PASSWORD=445661tva++6
 
 
 # Add the application JAR
-ADD target/chrifacile-0.0.1-SNAPSHOT.jar chrifacile.jar
+ADD target/chrifacile-0.0.2-SNAPSHOT.jar chrifacile.jar
 ENTRYPOINT [ "java", "-jar", "/chrifacile.jar" ]
