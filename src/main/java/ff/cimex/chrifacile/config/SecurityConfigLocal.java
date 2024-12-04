@@ -23,8 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Profile("prod")
-public class SecurityConfig {
+@Profile("local")
+public class SecurityConfigLocal {
 
 
     @Autowired
@@ -36,7 +36,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .requiresChannel(requiresChannel -> requiresChannel.anyRequest().requiresSecure())
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests

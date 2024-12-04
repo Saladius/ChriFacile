@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ff.cimex</groupId>
 	<artifactId>chrifacile</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.6-SNAPSHOT</version>
 	<name>chrifacile</name>
 	<description>backend for chrifacile</description>
 	<url/>

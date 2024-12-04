@@ -2,6 +2,7 @@ package ff.cimex.chrifacile.service;
 
 import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.entity.UserEntity;
+import ff.cimex.chrifacile.response.dto.UserDetailRecord;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,4 +27,8 @@ public interface UserService {
     Date userHaveValidSubscription();
 
     void subscribNewAbonnement(AbonnementDto abonnement);
+
+    UserDetailRecord getUserDetailRecord();
+
+    void deleteUser();
 }

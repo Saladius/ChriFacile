@@ -10,6 +10,7 @@ import ff.cimex.chrifacile.exception.UsernameExistsException;
 import ff.cimex.chrifacile.exception.UsernameNotFoundException;
 import ff.cimex.chrifacile.repository.UserRepository;
 import ff.cimex.chrifacile.request.dto.*;
+import ff.cimex.chrifacile.response.dto.UserDetailRecord;
 import ff.cimex.chrifacile.service.AbonnementService;
 import ff.cimex.chrifacile.service.UserService;
 import ff.cimex.chrifacile.util.JwtUtil;
@@ -136,6 +137,17 @@ public class UserServiceImpl implements UserService {
         Abonnement abonnement = abonnementService.getOrCreateAbonnement(abonnementDto);
 
         abonnementService.subscribNewAbonnement(abonnement, user.getVendeur());
+    }
+
+    @Override
+    public void deleteUser() {
+        userRepository.delete(getCurrentUser());
+    }
+
+    @Override
+    public UserDetailRecord getUserDetailRecord(){
+        UserEntity user = getCurrentUser();
+        return new UserDetailRecord(user.getUsername(),user.getEmail());
     }
 
     private String generateUsername(String fullname) {

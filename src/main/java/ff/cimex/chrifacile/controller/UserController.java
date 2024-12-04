@@ -4,6 +4,7 @@ import ff.cimex.chrifacile.constant.ConfigConstant;
 import ff.cimex.chrifacile.entity.UserEntity;
 import ff.cimex.chrifacile.request.dto.*;
 import ff.cimex.chrifacile.response.dto.JwtAuthenticationResponse;
+import ff.cimex.chrifacile.response.dto.UserDetailRecord;
 import ff.cimex.chrifacile.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -80,6 +81,18 @@ public class UserController {
     public ResponseEntity<?> subscribeNewAbonnement(@RequestBody AbonnementDto abonnementDto) {
         userService.subscribNewAbonnement(abonnementDto);
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteUser() {
+        userService.deleteUser();
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping ("/user-detail")
+    public ResponseEntity<?> getUserDetailRecord() {
+        UserDetailRecord userDetailRecord = userService.getUserDetailRecord();
+        return ResponseEntity.ok(userDetailRecord);
     }
 
 
