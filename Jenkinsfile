@@ -39,7 +39,7 @@ pipeline {
                     }
                 }
                 script {
-                    def jarFile = 'target/chrifacile-0.0.6-SNAPSHOT.jar'
+                    def jarFile = 'target/chrifacile-0.0.7-SNAPSHOT.jar'
                     if (!fileExists(jarFile)) {
                         error("JAR file not found! Build failed.")
                     }
