@@ -24,8 +24,8 @@ public class AnnonceMapper {
         dto.setNumTelephone(annonce.getNumTelephone());
         dto.setDescription(annonce.getDescription());
 
-        if(Objects.nonNull(annonce.getAppart())) {
-            dto.setAppartDto(AppartMapper.mapToDto(annonce.getAppart()));
+        if(Objects.nonNull(annonce.getBienImmobilier().getAppart())) {
+            dto.setBienImmobilierDto(BienImmobilierMapper.mapToDto(annonce.getBienImmobilier()));
         }
         if(Objects.nonNull(annonce.getTerrainAgricole())) {
             dto.setTerrainAgricoleDto(TerrainAgricoleMapper.mapToDto(annonce.getTerrainAgricole()));
@@ -52,8 +52,8 @@ public class AnnonceMapper {
         annonce.setDescription(dto.getDescription());
 
         annonce.setVille(dto.getVille());
-        if(Objects.nonNull(dto.getAppartDto())) {
-            annonce.setAppart(AppartMapper.mapToEntity(dto.getAppartDto()));
+        if(Objects.nonNull(dto.getBienImmobilierDto())) {
+            annonce.setBienImmobilier(BienImmobilierMapper.mapToEntity(dto.getBienImmobilierDto()));
         }
         if(Objects.nonNull(dto.getTerrainAgricoleDto())) {
             annonce.setTerrainAgricole(TerrainAgricoleMapper.mapToEntity(dto.getTerrainAgricoleDto()));

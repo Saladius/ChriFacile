@@ -26,7 +26,6 @@ public class AppartMapper {
         dto.setNbrSalleDeBainMin(appart.getNbrSalleDeBainMin());
         dto.setEtageMax(appart.getEtageMax());
         dto.setEtageMin(appart.getEtageMin());
-        dto.setQuartier(appart.getQuartier());
     }
 
     private static void copyPropertiesToAppart(Appart appart, AppartDto dto) {
@@ -36,6 +35,5 @@ public class AppartMapper {
         appart.setNbrSalleDeBainMin(dto.getNbrSalleDeBainMin());
         appart.setEtageMax(dto.getEtageMax());
         appart.setEtageMin(dto.getEtageMin());
-        appart.setQuartier(dto.getQuartier());
     }
 }

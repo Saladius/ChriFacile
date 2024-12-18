@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class AnnonceDto {
+    private Long idAnnonce;
     private String ville;
     private Type type;
     private Double superficieMax;
@@ -13,7 +14,7 @@ public class AnnonceDto {
     private Unites unites;
     private Long prixMax;
     private Long prixMin;
-    private AppartDto appartDto;
+    private BienImmobilierDto bienImmobilierDto;
     private TerrainAgricoleDto terrainAgricoleDto;
     private TerrainUrbainDto terrainUrbainDto;
     private String nomAcheteur;

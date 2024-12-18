@@ -3,8 +3,7 @@ package ff.cimex.chrifacile.request.dto;
 import lombok.Data;
 
 @Data
-public class AppartDto {
-
+public class RiadDto {
     private Integer nbrChambreMax;
     private Integer nbrChambreMin;
     private Integer nbrChambreActuel;

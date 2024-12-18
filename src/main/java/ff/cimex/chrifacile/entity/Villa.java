@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class Appart extends AbstractAudit {
+public class Villa extends AbstractAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idAppart;
+    private Long idVilla;
 
     private Integer nbrChambreMax;
     private Integer nbrChambreMin;
@@ -23,9 +23,10 @@ public class Appart extends AbstractAudit {
     private Integer etageMax;
     private Integer etageMin;
 
+    private boolean isGarage;
+
     @OneToOne
     private BienImmobilier bienImmobilier;
-
 
 
 }

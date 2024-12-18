@@ -12,7 +12,7 @@ public class FilterDto {
     private Long prixMin;
     private Long prixMax;
 
-    private AppartDto appartDto;
+    private BienImmobilierDto bienImmobilierDto;
     private TerrainAgricoleDto terrainAgricoleDto;
     private TerrainUrbainDto terrainUrbainDto;
 }

@@ -42,8 +42,8 @@ public class Annonce extends AbstractAudit {
     private TerrainAgricole terrainAgricole;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_appart")
-    private Appart appart;
+    @JoinColumn(name = "id_bien_immobilier")
+    private BienImmobilier bienImmobilier;
 
     private String nomAcheteur;
 
