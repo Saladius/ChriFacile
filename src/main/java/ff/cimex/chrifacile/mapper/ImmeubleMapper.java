@@ -24,6 +24,7 @@ public class ImmeubleMapper {
         dto.setEtageMax(immeuble.getEtageMax());
         dto.setEtageMin(immeuble.getEtageMin());
         dto.setGarage(immeuble.isGarage());
+        dto.setTypeImmeuble(immeuble.getTypeImmeuble());
     }
 
     private static void copyPropertiesToImmeuble(Immeuble immeuble, ImmeubleDto dto) {
@@ -32,5 +33,6 @@ public class ImmeubleMapper {
         immeuble.setEtageMax(dto.getEtageMax());
         immeuble.setEtageMin(dto.getEtageMin());
         immeuble.setGarage(dto.isGarage());
+        immeuble.setTypeImmeuble(dto.getTypeImmeuble());
     }
 }
