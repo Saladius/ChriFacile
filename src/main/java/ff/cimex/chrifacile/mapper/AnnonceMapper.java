@@ -24,7 +24,7 @@ public class AnnonceMapper {
         dto.setNumTelephone(annonce.getNumTelephone());
         dto.setDescription(annonce.getDescription());
 
-        if(Objects.nonNull(annonce.getBienImmobilier().getAppart())) {
+        if(Objects.nonNull(annonce.getBienImmobilier())) {
             dto.setBienImmobilierDto(BienImmobilierMapper.mapToDto(annonce.getBienImmobilier()));
         }
         if(Objects.nonNull(annonce.getTerrainAgricole())) {
