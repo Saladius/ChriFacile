@@ -71,6 +71,9 @@ public class AnnonceServiceImpl implements AnnonceService {
         return annonceRepository.findAllByCreatedAtAfterAndVille(dateOfLastVisibleAnnonces, filter.getVille());
     }
     private boolean isFilteredByPrerequisiteofType(Annonce annonce, FilterDto filterDto) {
+        if(CompareUtil.oneIsNull(filterDto.getType())){
+            return true;
+        }
         switch (filterDto.getType()) {
 
             case TYPE_BIEN_IMMOBILIER -> {
