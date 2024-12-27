@@ -140,8 +140,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser() {
-        userRepository.delete(getCurrentUser());
+    public void deleteUser(String jwtToken) {
+
+        String username = JwtUtil.extractUsername(jwtToken);
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        userRepository.delete(user);
     }
 
     @Override

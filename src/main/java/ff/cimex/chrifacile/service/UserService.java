@@ -30,5 +30,5 @@ public interface UserService {
 
     UserDetailRecord getUserDetailRecord();
 
-    void deleteUser();
+    void deleteUser(String jwtToken);
 }
