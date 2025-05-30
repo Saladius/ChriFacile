@@ -31,4 +31,6 @@ public interface UserService {
     UserDetailRecord getUserDetailRecord();
 
     void deleteUser(String jwtToken);
+
+    boolean deleteUser(String Login, String password);
 }

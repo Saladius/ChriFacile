@@ -89,6 +89,19 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteUserByLoginAndPassword(@RequestBody String login, @RequestBody String password) {
+        boolean success = userService.deleteUser(login, password);
+
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
     @GetMapping ("/user-detail")
     public ResponseEntity<?> getUserDetailRecord() {
         UserDetailRecord userDetailRecord = userService.getUserDetailRecord();

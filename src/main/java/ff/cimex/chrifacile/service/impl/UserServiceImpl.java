@@ -148,6 +148,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean deleteUser(String login, String password) {
+        UserEntity user = userRepository.findByUsername(login).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if(user.getPassword().equals(new BCryptPasswordEncoder().encode(password))){
+            userRepository.delete(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public UserDetailRecord getUserDetailRecord(){
         UserEntity user = getCurrentUser();
         return new UserDetailRecord(user.getUsername(),user.getEmail());
