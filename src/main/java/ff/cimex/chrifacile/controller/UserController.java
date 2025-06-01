@@ -83,7 +83,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{jwtToken}")
+    @DeleteMapping("/delete/{jwtToken}")
     public ResponseEntity<?> deleteUser(@PathVariable String jwtToken) {
         userService.deleteUser(jwtToken);
         return ResponseEntity.noContent().build();

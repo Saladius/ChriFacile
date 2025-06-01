@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/annonce/**","api/annonce/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/user/delete/**").permitAll()
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
